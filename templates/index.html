@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сборщик корпуса | OSINT</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 20px; color: #222; }
+        h1 { font-size: 1.5rem; margin-bottom: 0.2rem; }
+        .hint { color: #666; font-size: 0.95rem; margin-bottom: 1.5rem; }
+        label { display: block; margin-top: 16px; font-weight: 600; font-size: 0.9rem; }
+        textarea, input, select { width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+        textarea { min-height: 120px; font-family: monospace; }
+        button { margin-top: 20px; background: #111; color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 1rem; cursor: pointer; }
+        button:hover { background: #333; }
+        .warn { background: #fffbe6; border: 1px solid #ffe58f; padding: 12px; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <h1>📦 Сборщик редакционного корпуса</h1>
+    <p class="hint">Введите ключевые запросы — получите ZIP с очищенными текстами и манифестом для OpenWebUI.</p>
+
+    <div class="warn">
+        ⚡️ Ограничение: не более 4 запросов и 10 результатов на один запрос за раз.<br>
+        Если нужно больше — повторите цикл несколько раз с разными запросами.
+    </div>
+
+    <form action="/gather" method="POST">
+        <label for="queries">Ключевые запросы</label>
+        <textarea name="queries" id="queries" placeholder="Иванов экология уголовное дело 2024&#10;озеро X загрязнение&#10;Минприроды рейтинг 2023"></textarea>
+
+        <label for="corpus_name">Имя корпуса (для названия ZIP)</label>
+        <input type="text" name="corpus_name" id="corpus_name" placeholder="eco_dossier" value="my_corpus">
+
+        <label for="per_query">Сколько ссылок собирать с одного запроса</label>
+        <select name="per_query" id="per_query">
+            <option value="3" selected>3 (быстро, ~20 сек)</option>
+            <option value="5">5 (~40 сек)</option>
+            <option value="8">8 (~60 сек)</option>
+            <option value="10">10 (~90 сек)</option>
+        </select>
+
+        <button type="submit">🚀 Собрать корпус</button>
+    </form>
+</body>
+</html>
